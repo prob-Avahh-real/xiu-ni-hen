@@ -18,7 +18,7 @@ struct DashboardView: View {
                 .padding(16)
             }
         }
-        .navigationTitle("嗅觉卫士")
+        .navigationTitle("嗅你行")
         .toolbar {
             ToolbarItem(placement: PlatformToolbar.trailing) {
                 if vm.emergencyCount > 0 {

@@ -27,22 +27,22 @@ enum VoiceIntent: Equatable {
     var spokenConfirmation: String {
         switch self {
         case .emergency:
-            return "紧急情况，慢慢说"
+            return "紧急模式，请描述情况"
         case .logOdor(let type, let room):
-            if let type, let room { return "好，\(room)的\(type.rawValue)记下了" }
-            if let room { return "好，记一下\(room)" }
-            if let type { return "好，记一下\(type.rawValue)" }
-            return "说说闻到了什么"
+            if let type, let room { return "记录\(room)的\(type.rawValue)" }
+            if let room { return "记录\(room)的气味" }
+            if let type { return "记录\(type.rawValue)" }
+            return "请补充气味细节"
         case .switchRoom(let name):
-            return "切到\(name)了"
+            return "正在查看\(name)"
         case .recentIssues:
-            return "帮你打开历史"
+            return "打开历史记录"
         case .guidance(let type):
-            return type.map { "看看\($0.rawValue)怎么办" } ?? "说说哪种气味"
+            return type.map { "查看\($0.rawValue)排查指引" } ?? "选择要排查的气味"
         case .openSettings:
-            return "好，去设置"
+            return "打开设置"
         case .unknown:
-            return "没听清，再说一次"
+            return "没听清，请再说一次"
         }
     }
 }
@@ -60,10 +60,10 @@ final class VoiceService: ObservableObject {
     var onIntent: ((VoiceIntent) -> Void)?
 
     static let hints = [
-        "说说你闻到了什么",
-        "想查哪个房间，直接说",
-        "问问最近怎么样",
-        "拿不准就喊「怎么办」",
+        "说「我闻到味了」开始记录",
+        "说「看看厨房」切换房间",
+        "说「最近怎么样」查看历史",
+        "说「烟味怎么办」获取指引",
     ]
 
     private let recognizer: SFSpeechRecognizer?

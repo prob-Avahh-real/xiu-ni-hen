@@ -133,7 +133,7 @@ struct HomeView: View {
         VStack(spacing: DesignTokens.Spacing.tight) {
             Text("还没有房间")
                 .font(DesignTokens.Typography.h1)
-            Text("说「去设置」，或点探索添加")
+            Text("说「打开设置」或点探索添加")
                 .font(DesignTokens.Typography.caption)
                 .foregroundStyle(DesignTokens.Colors.textSecondary)
         }
@@ -194,9 +194,9 @@ struct HomeView: View {
 
     private var voiceStatusText: String {
         if voice.isSpeaking { return "…" }
-        if voice.isProcessing { return "理解中" }
+        if voice.isProcessing { return "识别中" }
         if voice.isListening {
-            return voice.transcript.isEmpty ? "在听" : voice.transcript
+            return voice.transcript.isEmpty ? "聆听中" : voice.transcript
         }
         return ""
     }
@@ -256,11 +256,11 @@ struct HomeView: View {
     private func roomHint(status: StatusIndicator.State, room: Room, unresolved: Int) -> String {
         switch status {
         case .good:
-            return "\(room.name) · 安好 · 轻触看历史"
+            return "\(room.name) · 空气正常 · 轻触卡片查看历史"
         case .attention:
-            return "\(room.name) · \(unresolved) 项待留意 · 轻触细看"
+            return "\(room.name) · \(unresolved) 项待处理 · 轻触深入"
         case .emergency:
-            return "\(room.name) · 需要马上留意"
+            return "\(room.name) · 需要立即关注"
         }
     }
 
@@ -396,6 +396,3 @@ struct FocusCardPager: View {
         }
     }
 }
-
-
-

@@ -1,4 +1,4 @@
-name: 嗅你狠
+name: 嗅你行
 options:
   bundleIdPrefix: com.odorwatch
   deploymentTarget:

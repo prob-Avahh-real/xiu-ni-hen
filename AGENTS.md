@@ -1,46 +1,39 @@
-# AGENTS.md — 嗅你狠
+# 嗅你狠
 
-iOS / macOS SwiftUI 应用，用于室内气味检测与追踪。
+嗅你行 (OdorWatch) An indoor odor detection and tracking app for iOS/macOS built with SwiftUI. Features - Track 10 types of indoor odors (smoke, gas, mold, chemical, etc.) - Record intensity, location, and notes for each odor event
 
-## 技术栈
+## 用途与 Target 判定
 
-Swift 5.9 · SwiftUI · iOS 17+ / macOS 14+
+原生 Swift / SwiftUI 工程（已归档）
 
-## 文件结构
+- 移动端：需要
+- 智能硬件：可选（可搁置）
 
-```
-Sources/OdorWatch/
-  App/              — @main 入口
-  Models/           — 数据模型（OdorType, OdorEvent, Room 等）
-  Services/
-    Protocols/      — 服务协议（Storage, PatternEngine, Notification）
-    StorageService.swift
-    PatternEngine.swift
-    NotificationService.swift
-  ViewModels/       — OdorViewModel（依赖注入）
-  Views/
-    ContentView.swift
-    Home/             — 极简主屏（单房间聚焦 + 语音）
-    Components/       — 可复用 UI 组件
-    Dashboard/        — 旧版（已弃用，保留参考）
-    Timeline/ Guidance/ Settings/
-  DesignSystem/       — DesignTokens, VoiceButton, FocusCard
-Tests/OdorWatchTests/
-```
+## 目标平台
 
-## 架构约定
+| 平台 | 方式 | 产出 |
+|------|------|------|
+| 移动端 | 原生 Swift | IPA / App |
+| 智能硬件 | 可选 | — |
 
-- **单一源码目录**：仅 `Sources/OdorWatch/`，XcodeGen 通过 `project.yml` 引用
-- **极简 + 探索式**：主屏只展示一个房间焦点，历史/指引/设置通过语音或「探索」抽屉进入
-- **语音调度**：`VoiceService` 识别意图 → TTS 确认 → 打开对应 Sheet
-- **依赖注入**：ViewModel 通过协议接收 Storage / PatternEngine / Notification 服务
-- **跨平台**：iOS 专属 API 使用 `#if os(iOS)` 或 `Extensions/PlatformColor.swift`
+## 技术栈信号
 
-## 常用命令
+- 检测到：swift
+
+## 命令
 
 ```bash
-swift build          # 编译
-swift test           # 单元测试
-swiftlint            # 代码检查
-xcodegen             # 生成 Xcode 工程
+# Xcode 打开工程，或 swift build（若 SPM）
 ```
+
+## 状态
+
+已归档。默认只做必要修复与知识库同步，不新开大范围需求。
+
+## 助手约束
+
+- Loop：先定可验证 Done 与停止条件；每切片过验证环；失败回灌；详见 docs/LOOP_ENGINEERING.md
+- Harness：遵循根 AGENTS「Harness Engineering」；Guide=本文件，Sensor=测试/CI；同类失误二次须沉淀规则或测试（棘轮）。详见 docs/HARNESS_ENGINEERING.md
+- 遵循仓库根 `/Users/skat/AGENTS.md` 与本文件的用途判定
+- 可选 Target 可搁置；不适用形态不要硬加
+- 改动聚焦；公共逻辑抽离复用

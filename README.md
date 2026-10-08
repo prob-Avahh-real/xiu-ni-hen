@@ -1,4 +1,4 @@
-# 嗅你狠 (OdorWatch)
+# 嗅你行 (OdorWatch)
 
 An indoor odor detection and tracking app for iOS/macOS built with SwiftUI.
 
